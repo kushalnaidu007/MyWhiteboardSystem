@@ -1,0 +1,59 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cloud Collaborative Whiteboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button
+      onclick="TogetherJS(this); return false;"
+      style="
+        align-items: center;
+        background-color: cadetblue;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+      "
+    >
+      LET's COLLABORATE
+    </button>
+    <br />
+    <br />
+    <button
+      onclick="myFunction()"
+      style="
+        align-items: center;
+        background-color: cadetblue;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+      "
+    >
+      Vote
+    </button>
+    <br />
+    <br />
+
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
+    <div id="controls">
+      <input id="snapshotButton" type="button" value="Take snapshot" />
+      <img id="snapshotImageElement" alt="" />
+    </div>
+
+    <canvas class="sketch"></canvas>
+    <div class="colors">
+      <div class="color black"></div>
+      <div class="color red"></div>
+      <div class="color green"></div>
+      <div class="color pink"></div>
+      <div class="color blue"></div>
+      <div class="color orange"></div>
+      <div class="color yellow"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script src="/index.js"></script>
+    
+  </body>
+</html>

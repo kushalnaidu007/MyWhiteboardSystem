@@ -1,0 +1,15 @@
+.sketch{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.snapshotImageElement {
+    text-align: center;
+    position: absolute;
+    left: 10px;
+    top: 1.5em;
+    margin: 20px;
+    border: thin solid #aaaaaa;
+  }
