@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const io = require("socket.io")(http);
 
 // Static files to be served.
