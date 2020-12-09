@@ -7,6 +7,8 @@
   var snapshotButton = document.getElementById("snapshotButton");
   var snapshotImageElement = document.getElementById("snapshotImageElement");
   var loop;
+
+  
   // var colorErase = document.getElementsByClassName("btn");
   var context = canvas.getContext("2d");
   var dataUrl;
@@ -39,14 +41,36 @@
  
   snapshotButton.onclick = function (e) {
     
- 
+     
+
     if (snapshotButton.value === "Take snapshot") {
+      var snap = prompt("do you want a snapsopt, type YES or NO", "");
+    console.log("snap reply is", snap);
+    var countsnap=0, countnosnap=0;
+
+    if(snap == "yes")
+    {
+      countsnap++;
+    }
+    if(snap=="no")
+    {
+      countnosnap++;
+    }
+    console.log(countsnap);
+    console.log(countnosnap);
+
+    var i=0;
+    i= (countsnap/countnosnap+countsnap)*100;
+    console.log(i);
+    if(i>50)
+    {
       dataUrl = canvas.toDataURL();
       clearInterval(loop);
       snapshotImageElement.src = dataUrl;
       snapshotImageElement.style.display = "inline";
       canvas.style.display = "none";
       snapshotButton.value = "Return to Canvas";
+    }
     }else if(snapshotButton.value === "Return to Canvas" ){
         dataUrl = canvas.toDataURL();
         clearInterval(loop);
