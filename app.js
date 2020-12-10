@@ -10,7 +10,9 @@ app.use(express.static(__dirname + ""));
 // Create an event handler.
 const onConnection = socket => { 
   socket.on("drawing", data => socket.broadcast.emit("drawing", data));
-  socket.on("voting", data => socket.broadcast.emit("voting", data));
+  socket.on("election", data => socket.broadcast.emit("election", data));
+
+  socket.on("snap", data => socket.broadcast.emit("snap", data));
 
 };
 

@@ -3,7 +3,6 @@
 (function () {
   var socket = io();
   var canvas = document.getElementsByClassName("sketch")[0];
-  var colors = document.getElementsByClassName("colors");
   var snapshotButton = document.getElementById("snapshotButton");
   var snapshotImageElement = document.getElementById("snapshotImageElement");
   var loop;
@@ -30,9 +29,7 @@
   canvas.addEventListener("touchcancel", onMouseUp, false);
   canvas.addEventListener("touchmove", throttle(onMouseMove, 10), false);
  
-  for (var i = 0; i < colors.length; i++) {
-    colors[i].addEventListener("click", onColorUpdate, false);
-  }
+ 
  
   socket.on("drawing", onDrawingEvent);
  
@@ -41,18 +38,34 @@
  
   snapshotButton.onclick = function (e) {
     
-     
+   socket=io();
 
     if (snapshotButton.value === "Take snapshot") {
+      var user = prompt("Enter your name?");
       var snap = prompt("do you want a snapsopt, type YES or NO", "");
+      var data = [{user,
+        snap}];
     console.log("snap reply is", snap);
+    snapfunc(data);
+    function snapfunc(data1){
+      var scores1 = data1.reduce((acc, cur) => {
+        if (!acc[cur.snap]) {
+          acc[cur.snap] = 1;
+        } else {
+          acc[cur.snap]++;
+        }
+        console.log(scores1);
+        return acc;
+        
+        }, {});}
+        
     var countsnap=0, countnosnap=0;
 
     if(snap == "yes")
     {
       countsnap++;
     }
-    if(snap=="no")
+    else if(snap=="no")
     {
       countnosnap++;
     }
@@ -87,6 +100,11 @@
       loop = setInterval(drawClock, 1000);
       snapshotButton.value = "Take snapshot";
     }
+    if (!socket.emit) {
+      return;
+    }
+    socket.emit("snap",i);
+    console.log(i+ " will be the snap.");
   };
   
  
@@ -173,9 +191,7 @@
   }
  
   
-function onColorUpdate(e) {
-    current.color = e.target.className.split(" ")[1];
-  }
+
  
   // limit the number of events per second
   function throttle(callback, delay) {
@@ -233,25 +249,25 @@ function myFunction() {
 
   //var voting=false;
   var socket = io();
-  socket.on("voting", onVotingEvent);
-  onVotingEvent();
+  socket.on("election", onElectionEvent);
+  onElectionEvent();
 
-  function onVotingEvent(){
+  function onElectionEvent(){
 
     
-  var user = prompt("What's your name?");
-  var vote = prompt("Who you wanna vote to? Choose one:", "");
+  var user = prompt("Enter your name?");
+  var vote = prompt("Enter the user name to vote:", "");
   var data = [{user,
     vote}];
 console.log("vote", data);
 console.log(data);
-voteaction(data);
+electleader(data);
 
  }
 
- function voteaction(data)
+ function electleader(data)
  {
-var scores = data.reduce((acc, cur) => {
+var numberofvotes = data.reduce((acc, cur) => {
 if (!acc[cur.vote]) {
   acc[cur.vote] = 1;
 } else {
@@ -260,11 +276,11 @@ if (!acc[cur.vote]) {
 return acc;
 }, {});
 
-console.log(scores);
+console.log(numberofvotes);
 
 var sortedScores = [];
-for (var person in scores) {
-  sortedScores.push([person, scores[person]]);
+for (var person in numberofvotes) {
+  sortedScores.push([person, numberofvotes[person]]);
 }
 
 sortedScores.sort(function(b, a) {
@@ -275,12 +291,16 @@ console.log(sortedScores);
 if (!socket.emit) {
   return;
 }
-socket.emit("voting",sortedScores);
+socket.emit("election",sortedScores);
 
-console.log(sortedScores[0][0] + " will be the leader.");
+console.log(sortedScores[0][0] + " is the leader of the whiteboard.");
+
+
+outerHeight.ptintln()
  }
 
 
 
 
 } 
+
